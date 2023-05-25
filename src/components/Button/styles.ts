@@ -3,13 +3,19 @@ import styled, { css } from 'styled-components'
 interface ButtonContainerProps {
   variant: 'default' | 'primary' | 'secondary'
   size: 'small' | 'medium'
+  selected: boolean
 }
 
-const defaultStyles = css`
+const defaultStyles = css<ButtonContainerProps>`
   text-transform: uppercase;
   font-weight: 400;
 
-  background-color: ${(props) => props.theme['base-button']};
+  border: 1px solid
+    ${(props) => (props.selected ? props.theme.purple : 'transparent')};
+
+  background-color: ${(props) =>
+    props.selected ? props.theme['purple-light'] : props.theme['base-button']};
+
   color: ${(props) => props.theme['base-text']};
 
   svg {
@@ -17,7 +23,12 @@ const defaultStyles = css`
   }
 
   &:hover {
-    background-color: ${(props) => props.theme['base-hover']};
+    background-color: ${(props) =>
+      props.selected ? props.theme['purple-light'] : props.theme['base-hover']};
+  }
+
+  :focus {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.purple};
   }
 `
 
@@ -62,7 +73,9 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
   gap: 0.5rem;
+  line-height: 1;
 
   padding: 0.5rem 0.75rem;
   border-radius: 6px;

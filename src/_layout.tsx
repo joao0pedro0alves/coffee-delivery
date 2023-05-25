@@ -1,16 +1,12 @@
-import { ReactNode } from 'react'
+import { Outlet } from 'react-router-dom'
 import { Header } from './components/Header'
 import { LayoutContainer } from './styles'
 
-interface RootLayoutProps {
-  children: ReactNode
-}
-
-export function RootLayout({ children }: RootLayoutProps) {
+export function RootLayout() {
   return (
     <LayoutContainer>
       <Header />
-      {children}
+      <Outlet />
     </LayoutContainer>
   )
 }

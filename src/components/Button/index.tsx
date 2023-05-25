@@ -4,6 +4,7 @@ import { ButtonContainer } from './styles'
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'primary' | 'secondary'
   size?: 'small' | 'medium'
+  selected?: boolean
 
   startIcon?: ReactNode
   children: ReactNode
@@ -12,12 +13,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({
   variant = 'default',
   size = 'medium',
+  selected = false,
   children,
   startIcon,
   ...buttonProps
 }: ButtonProps) {
   return (
-    <ButtonContainer {...buttonProps} size={size} variant={variant}>
+    <ButtonContainer
+      {...buttonProps}
+      size={size}
+      variant={variant}
+      selected={selected}
+    >
       {startIcon}
       <span>{children}</span>
     </ButtonContainer>
