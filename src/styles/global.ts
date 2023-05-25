@@ -29,4 +29,12 @@ export const GlobalStyle = createGlobalStyle`
   h1, h2, h3 {
     line-height: 130%;
   }
+
+  .Container {
+    width: 100%;
+    max-width: 90rem; // 1440px
+    padding-right: 10rem;
+    padding-left: 10rem;
+    margin: 0 auto;
+  }
 `

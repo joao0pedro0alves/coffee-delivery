@@ -7,7 +7,8 @@ export const HomeContainer = styled.main`
 `
 
 export const StoreContainer = styled.div`
-  margin: 2rem 0;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 
   h3 {
     font-family: 'Baloo 2', cursive;

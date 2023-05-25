@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import heroBackground from '../../assets/hero-background.png'
+
 const ICON_VARIANTS = {
   yellow: 'yellow',
   'yellow-dark': 'yellow-dark',
@@ -11,13 +13,20 @@ interface IconContainerProps {
   color: keyof typeof ICON_VARIANTS
 }
 
-export const HeroContainer = styled.div`
-  padding: 5.75rem 0;
+export const HeroBackground = styled.div`
+  background-image: url(${heroBackground});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+`
 
+export const HeroContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 3.5rem;
+  padding-top: 5.75rem;
+  padding-bottom: 5.75rem;
 
   img {
     flex: 1;

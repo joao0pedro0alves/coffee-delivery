@@ -9,7 +9,7 @@ export function Home() {
     <HomeContainer>
       <Hero />
 
-      <StoreContainer>
+      <StoreContainer className="Container">
         <h3>Nossos cafés</h3>
 
         <CatalogContainer>

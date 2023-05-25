@@ -13,6 +13,10 @@ const secondaryStyles = css`
   background-color: ${(props) => props.theme['purple-dark']};
   color: ${(props) => props.theme.white};
   padding: 0.5rem;
+
+  :focus {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.purple};
+  }
 `
 
 const variantStyles = {
