@@ -5,6 +5,8 @@ import {
   MapPinLine,
   Money,
 } from 'phosphor-react'
+import { FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTheme } from 'styled-components'
 import { Button } from '../../components/Button'
 import { CheckoutConfirm } from './CheckoutConfirm'
@@ -19,10 +21,17 @@ import {
 
 export function Checkout() {
   const theme = useTheme()
+  const navigate = useNavigate()
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+
+    navigate('/delivery')
+  }
 
   return (
     <CheckoutContainer className="Container">
-      <CheckoutForm>
+      <CheckoutForm onSubmit={handleSubmit}>
         {/* Left */}
         <section>
           <h3>Complete seu pedido</h3>

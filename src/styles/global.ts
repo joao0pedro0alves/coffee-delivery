@@ -35,6 +35,7 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 90rem; // 1440px
     padding-right: 10rem;
     padding-left: 10rem;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 `

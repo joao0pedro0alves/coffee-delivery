@@ -32,7 +32,11 @@ export function CheckoutConfirm() {
                   <span>{coffee.name}</span>
                   <div>
                     <InputNumber />
-                    <Button startIcon={<Trash size={16} />} size="small">
+                    <Button
+                      type="button"
+                      startIcon={<Trash size={16} />}
+                      size="small"
+                    >
                       Remover
                     </Button>
                   </div>
