@@ -1,18 +1,21 @@
 import { createContext, ReactNode, useReducer, useEffect } from 'react'
-import { CartItem, cartReducer } from '../reducers/cart/reducer'
+import { CartItem, CheckoutData, cartReducer } from '../reducers/cart/reducer'
 import {
   addCartItemAction,
   updateCartItemAmontAction,
   removeCartItemAction,
+  checkoutAction,
 } from '../reducers/cart/actions'
 
 interface CartContextProps {
   items: CartItem[]
-  // checkout: null | CheckoutData
+  checkoutData: null | CheckoutData
 
   addItem: (item: CartItem) => void
   updateItemAmount: (itemId: string, newAmount: number) => void
   removeItem: (itemId: string) => void
+
+  checkout: (checkoutData: CheckoutData) => void
 }
 
 interface CartContextProviderProps {
@@ -42,6 +45,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     },
   )
 
+  // Cart items
+
   function addItem(item: CartItem) {
     dispatch(addCartItemAction(item))
   }
@@ -54,6 +59,12 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(removeCartItemAction(itemId))
   }
 
+  // Checkout
+
+  function checkout(checkoutData: CheckoutData) {
+    dispatch(checkoutAction(checkoutData))
+  }
+
   useEffect(() => {
     const stateJSON = JSON.stringify(cartState)
     localStorage.setItem(CART_STATE_KEY, stateJSON)
@@ -61,7 +72,16 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   return (
     <CartContext.Provider
-      value={{ items: cartState.items, addItem, updateItemAmount, removeItem }}
+      value={{
+        items: cartState.items,
+        checkoutData: cartState.checkoutData,
+
+        addItem,
+        updateItemAmount,
+        removeItem,
+
+        checkout,
+      }}
     >
       {children}
     </CartContext.Provider>

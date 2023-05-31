@@ -9,18 +9,20 @@ export interface CartItem {
   imageUrl: string
 }
 
-// export interface CheckoutData {
-//   cep: string
-//   address: string
-//   number: string
-//   complement: string
-//   neighborhood: string
-//   city: string
-//   state: string
-// }
+export interface CheckoutData {
+  cep: string
+  address: string
+  number: string
+  complement: string
+  neighborhood: string
+  city: string
+  state: string
+  paymentType: string
+}
 
 interface CartState {
   items: CartItem[]
+  checkoutData: null | CheckoutData
 }
 
 interface CartAction {
@@ -63,6 +65,13 @@ export function cartReducer(state: CartState, action: CartAction) {
         )
 
         draft.items.splice(index, 1)
+      })
+    }
+
+    case CartActions.CHECKOUT: {
+      return produce(state, (draft) => {
+        draft.checkoutData = action.payload.checkoutData
+        draft.items = []
       })
     }
     default:

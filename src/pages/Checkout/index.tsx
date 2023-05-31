@@ -1,13 +1,10 @@
-import {
-  Bank,
-  CreditCard,
-  CurrencyDollar,
-  MapPinLine,
-  Money,
-} from 'phosphor-react'
-import { FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FormEvent, useState } from 'react'
+import { CurrencyDollar, MapPinLine } from 'phosphor-react'
 import { useTheme } from 'styled-components'
+
+import { paymentTypes } from '../../repositories/payment_types'
+import { useCartContext } from '../../hooks/useCartContext'
+import { Icon } from '../../components/Icon'
 import { Button } from '../../components/Button'
 import { CheckoutConfirm } from './CheckoutConfirm'
 import {
@@ -21,12 +18,30 @@ import {
 
 export function Checkout() {
   const theme = useTheme()
-  const navigate = useNavigate()
 
-  function handleSubmit(event: FormEvent) {
+  const { checkout } = useCartContext()
+
+  const [selectedPaymentType, setSelectedPaymentType] = useState<string | null>(
+    null,
+  )
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    navigate('/delivery')
+    const formData = new FormData(event.currentTarget)
+
+    if (selectedPaymentType) {
+      checkout({
+        cep: formData.get('cep') as string,
+        address: formData.get('address') as string,
+        number: formData.get('number') as string,
+        complement: formData.get('complement') as string,
+        neighborhood: formData.get('neighborhood') as string,
+        city: formData.get('city') as string,
+        state: formData.get('state') as string,
+        paymentType: selectedPaymentType,
+      })
+    }
   }
 
   return (
@@ -79,19 +94,19 @@ export function Checkout() {
             </CoffeeCardHeader>
 
             <CoffeeCardBody>
-              <Button
-                selected
-                startIcon={<CreditCard size={16} />}
-                type="button"
-              >
-                Cartão de crédito
-              </Button>
-              <Button startIcon={<Bank size={16} />} type="button">
-                Cartão de débito
-              </Button>
-              <Button startIcon={<Money size={16} />} type="button">
-                Dinheiro
-              </Button>
+              {paymentTypes.map((paymentType) => {
+                return (
+                  <Button
+                    key={paymentType.id}
+                    startIcon={<Icon name={paymentType.iconName} size={16} />}
+                    type="button"
+                    selected={selectedPaymentType === paymentType.id}
+                    onClick={() => setSelectedPaymentType(paymentType.id)}
+                  >
+                    {paymentType.name}
+                  </Button>
+                )
+              })}
             </CoffeeCardBody>
           </CoffeeCard>
         </section>

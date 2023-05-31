@@ -48,7 +48,7 @@ export const DeliveryContainer = styled.div`
 export const DeliveryDetailContainer = styled.div`
   position: relative;
 
-  max-width: 526px;
+  width: 526px;
   padding: 2.5rem;
   border-radius: 6px 36px;
   border: 1px solid transparent;
