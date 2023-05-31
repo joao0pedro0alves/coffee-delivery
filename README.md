@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="" title="" src=".github/logo-ignite.svg" width="80px" />
+    <img alt="" title="" src=".github/logo-coffe-delivery.svg" width="80px" />
 </h1>
 
 <p align="center">
