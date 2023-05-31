@@ -6,7 +6,7 @@ export const coffees: Coffee[] = [
     name: 'Expresso Tradicional',
     imageUrl: '/coffees/expresso.png',
     description: 'O tradicional café feito com água quente e grãos moídos',
-    priceInCents: 990,
+    priceInCents: 599,
     types: ['TRADICIONAL'],
   },
   {
@@ -14,7 +14,7 @@ export const coffees: Coffee[] = [
     name: 'Expresso Americano',
     imageUrl: '/coffees/expresso-americano.png',
     description: 'Expresso diluído, menos intenso que o tradicional',
-    priceInCents: 990,
+    priceInCents: 599,
     types: ['TRADICIONAL'],
   },
   {
@@ -22,7 +22,7 @@ export const coffees: Coffee[] = [
     name: 'Expresso Cremoso',
     imageUrl: '/coffees/expresso-cremoso.png',
     description: 'Café expresso tradicional com espuma cremosa',
-    priceInCents: 990,
+    priceInCents: 699,
     types: ['TRADICIONAL'],
   },
   {
@@ -30,7 +30,7 @@ export const coffees: Coffee[] = [
     name: 'Expresso Gelado',
     imageUrl: '/coffees/expresso-gelado.png',
     description: 'Bebida preparada com café expresso e cubos de gelo',
-    priceInCents: 990,
+    priceInCents: 699,
     types: ['TRADICIONAL', 'GELADO'],
   },
   {
@@ -38,7 +38,7 @@ export const coffees: Coffee[] = [
     name: 'Café com Leite',
     imageUrl: '/coffees/cafe-com-leite.png',
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
-    priceInCents: 990,
+    priceInCents: 790,
     types: ['TRADICIONAL', 'COM LEITE'],
   },
   {
@@ -47,7 +47,7 @@ export const coffees: Coffee[] = [
     imageUrl: '/coffees/latte.png',
     description:
       'Uma dose de café expresso com o dobro de leite e espuma cremosa',
-    priceInCents: 990,
+    priceInCents: 890,
     types: ['TRADICIONAL', 'COM LEITE'],
   },
   {
@@ -90,7 +90,7 @@ export const coffees: Coffee[] = [
     imageUrl: '/coffees/cubano.png',
     description:
       'Drink gelado de café expresso com rum, creme de leite e hortelã',
-    priceInCents: 990,
+    priceInCents: 1050,
     types: ['ESPECIAL', 'ALCOOLICO', 'GELADO'],
   },
   {
@@ -98,15 +98,15 @@ export const coffees: Coffee[] = [
     name: 'Havaiano',
     imageUrl: '/coffees/havaiano.png',
     description: 'Bebida adocicada preparada com café e leite de coco',
-    priceInCents: 990,
+    priceInCents: 1050,
     types: ['ESPECIAL'],
   },
   {
     id: 'arabe',
     name: 'Árabe',
     imageUrl: '/coffees/arabe.png',
-    description: 'Bebida preparada com grãos de café árabe e especiarias',
-    priceInCents: 990,
+    description: '1050 preparada com grãos de café árabe e especiarias',
+    priceInCents: 1050,
     types: ['ESPECIAL'],
   },
   {
@@ -114,7 +114,7 @@ export const coffees: Coffee[] = [
     name: 'Irlandês',
     imageUrl: '/coffees/irlandes.png',
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
-    priceInCents: 990,
+    priceInCents: 1190,
     types: ['ESPECIAL', 'ALCOOLICO'],
   },
 ]

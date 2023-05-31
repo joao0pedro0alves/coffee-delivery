@@ -37,5 +37,11 @@ export const GlobalStyle = createGlobalStyle`
     padding-left: 10rem;
     margin-left: auto;
     margin-right: auto;
+
+    // md
+    @media (max-width: 768px) {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
   }
 `

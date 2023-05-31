@@ -43,6 +43,20 @@ export const DeliveryContainer = styled.div`
       display: inline-block;
     }
   }
+
+  @media (max-width: 768px) {
+    img {
+      display: none;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      font-size: 1rem;
+    }
+  }
 `
 
 export const DeliveryDetailContainer = styled.div`

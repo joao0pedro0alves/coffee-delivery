@@ -20,10 +20,15 @@ export const CheckoutForm = styled.form`
 
     color: ${(props) => props.theme['base-subtitle']};
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const CoffeeCard = styled.div`
-  width: 640px;
+  max-width: 640px;
 
   padding: 2.5rem;
   background-color: ${(props) => props.theme['base-card']};
@@ -71,6 +76,10 @@ export const CoffeeCardBody = styled.div`
       right: 0.75rem;
       transform: translateY(-50%);
     }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 `
 

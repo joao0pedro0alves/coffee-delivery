@@ -1,5 +1,7 @@
 import { createContext, ReactNode, useReducer, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
+
 import { CartItem, CheckoutData, cartReducer } from '../reducers/cart/reducer'
 import {
   addCartItemAction,
@@ -52,6 +54,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   function addItem(item: CartItem) {
     dispatch(addCartItemAction(item))
+
+    toast(`${item.name} adicionado ao carrinho`, {
+      icon: '☕',
+    })
   }
 
   function updateItemAmount(itemId: string, newAmount: number) {

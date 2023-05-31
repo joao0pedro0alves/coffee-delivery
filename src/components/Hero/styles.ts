@@ -51,6 +51,28 @@ export const HeroContainer = styled.div`
     font-size: 1.25rem;
     font-weight: 400;
   }
+
+  // md
+  @media (max-width: 768px) {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    > div {
+      max-width: 100vw;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+    }
+
+    img {
+      display: none;
+    }
+  }
 `
 
 export const HeroDetailContainer = styled.div`
@@ -68,6 +90,10 @@ export const HeroDetailContainer = styled.div`
 
   span {
     white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 `
 
