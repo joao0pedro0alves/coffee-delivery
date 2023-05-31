@@ -1,22 +1,4 @@
-const COFFEE_TYPES = {
-  TRADICIONAL: 'TRADICIONAL',
-  GELADO: 'GELADO',
-  ESPECIAL: 'ESPECIAL',
-  ALCOOLICO: 'ALCOÓLICO',
-  'COM LEITE': 'COM LEITE',
-}
-
-type CoffeeType = keyof typeof COFFEE_TYPES
-
-interface Coffee {
-  id: string
-  name: string
-  imageUrl: string
-
-  description: string
-  priceInCents: number
-  types: CoffeeType[]
-}
+import { Coffee } from './dto/Coffee'
 
 export const coffees: Coffee[] = [
   {

@@ -1,15 +1,15 @@
-import { useState, createContext, ReactNode } from 'react'
-
-interface CartItem {
-  id: string
-  name: string
-  amount: number
-  priceInCents: number
-  imageUrl: string
-}
+import { createContext, ReactNode, useReducer, useEffect } from 'react'
+import { CartItem, cartReducer } from '../reducers/cart/reducer'
+import {
+  addCartItemAction,
+  updateCartItemAmontAction,
+  removeCartItemAction,
+} from '../reducers/cart/actions'
 
 interface CartContextProps {
   items: CartItem[]
+  // checkout: null | CheckoutData
+
   addItem: (item: CartItem) => void
   updateItemAmount: (itemId: string, newAmount: number) => void
   removeItem: (itemId: string) => void
@@ -19,41 +19,49 @@ interface CartContextProviderProps {
   children: ReactNode
 }
 
-// Context
-
 export const CartContext = createContext<CartContextProps>(
   {} as CartContextProps,
 )
 
+const CART_STATE_KEY = '@coffee-delivery:cart-state-1.0.0'
+
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [items, setItems] = useState<CartItem[]>([])
+  const [cartState, dispatch] = useReducer(
+    cartReducer,
+    {
+      items: [],
+    },
+    (initialState) => {
+      const storedStateAsJSON = localStorage.getItem(CART_STATE_KEY)
+
+      if (storedStateAsJSON) {
+        return JSON.parse(storedStateAsJSON)
+      }
+
+      return initialState
+    },
+  )
 
   function addItem(item: CartItem) {
-    setItems((state) => {
-      const alreadyIncluded = state.some((cartItem) => cartItem.id === item.id)
-
-      if (alreadyIncluded) return state
-      return [...state, item]
-    })
+    dispatch(addCartItemAction(item))
   }
 
   function updateItemAmount(itemId: string, newAmount: number) {
-    setItems((state) => {
-      return state.map((cartItem) =>
-        cartItem.id === itemId ? { ...cartItem, amount: newAmount } : cartItem,
-      )
-    })
+    dispatch(updateCartItemAmontAction(itemId, newAmount))
   }
 
   function removeItem(itemId: string) {
-    setItems((state) => {
-      return state.filter((cartItem) => cartItem.id !== itemId)
-    })
+    dispatch(removeCartItemAction(itemId))
   }
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cartState)
+    localStorage.setItem(CART_STATE_KEY, stateJSON)
+  }, [cartState])
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, updateItemAmount, removeItem }}
+      value={{ items: cartState.items, addItem, updateItemAmount, removeItem }}
     >
       {children}
     </CartContext.Provider>

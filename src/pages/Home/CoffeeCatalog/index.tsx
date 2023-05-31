@@ -10,7 +10,7 @@ import {
 
 import { InputNumber } from '../../../components/InputNumber'
 import { useCartContext } from '../../../hooks/useCartContext'
-import { Coffee } from '../../../sample/coffees'
+import { Coffee } from '../../../repositories/dto/Coffee'
 
 interface CoffeeCatalogProps {
   data: Coffee
