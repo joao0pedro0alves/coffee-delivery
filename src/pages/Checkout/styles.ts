@@ -20,10 +20,15 @@ export const CheckoutForm = styled.form`
 
     color: ${(props) => props.theme['base-subtitle']};
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const CoffeeCard = styled.div`
-  width: 640px;
+  max-width: 640px;
 
   padding: 2.5rem;
   background-color: ${(props) => props.theme['base-card']};
@@ -72,12 +77,22 @@ export const CoffeeCardBody = styled.div`
       transform: translateY(-50%);
     }
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
-export const CardInput = styled.input`
+interface CardInputProps {
+  isError: boolean
+}
+
+export const CardInput = styled.input<CardInputProps>`
   background-color: ${(props) => props.theme['base-input']};
   color: ${(props) => props.theme['base-label']};
-  border: 1px solid ${(props) => props.theme['base-button']};
+  border: 1px solid
+    ${(props) =>
+      props.isError ? props.theme['base-error'] : props.theme['base-button']};
   padding: 0.75rem;
   border-radius: 4px;
   font-size: 0.875rem;

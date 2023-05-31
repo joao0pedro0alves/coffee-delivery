@@ -11,6 +11,7 @@ export const defaultTheme = {
   'base-text': '#574F4D',
   'base-subtitle': '#403937',
   'base-title': '#272221',
+  'base-error': '#ef4444',
 
   // Produto
   'yellow-light': '#F1E9C9',

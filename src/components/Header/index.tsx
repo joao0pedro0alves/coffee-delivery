@@ -11,7 +11,7 @@ import { useCartContext } from '../../hooks/useCartContext'
 export function Header() {
   const navigate = useNavigate()
 
-  const { items } = useCartContext()
+  const { items, checkoutData } = useCartContext()
 
   return (
     <HeaderContainer className="Container">
@@ -20,13 +20,14 @@ export function Header() {
       </NavLink>
 
       <div>
-        <Button
-          title="Alterar endereço"
-          variant="secondary"
-          startIcon={<MapPin weight="fill" size={22} />}
-        >
-          Porto Alegre, RS
-        </Button>
+        {checkoutData && (
+          <Button
+            variant="secondary"
+            startIcon={<MapPin weight="fill" size={22} />}
+          >
+            {checkoutData.city}, {checkoutData.state}
+          </Button>
+        )}
 
         <CheckoutButton
           onClick={() => navigate('/checkout')}

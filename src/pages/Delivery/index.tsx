@@ -6,8 +6,16 @@ import {
 } from './styles'
 
 import deliveryIlustration from '../../assets/delivery-ilustration.png'
+import { useCartContext } from '../../hooks/useCartContext'
+import { paymentTypes } from '../../repositories/payment_types'
 
 export function Delivery() {
+  const { checkoutData } = useCartContext()
+
+  const paymentType = paymentTypes.find(
+    (type) => type.id === checkoutData?.paymentType,
+  )
+
   return (
     <DeliveryContainer className="Container">
       <h3>Uhu! Pedido confirmado</h3>
@@ -22,8 +30,13 @@ export function Delivery() {
             </IconContainer>
 
             <span>
-              Entrega em <strong>Rua João Daniel Martinelli, 102</strong>{' '}
-              Farrapos - Porto Alegre, RS
+              Entrega em{' '}
+              <strong>
+                {checkoutData?.address}, {checkoutData?.number}
+              </strong>{' '}
+              {checkoutData?.neighborhood} - {checkoutData?.city},{' '}
+              {checkoutData?.state}
+              {checkoutData?.complement && <i> - {checkoutData?.complement}</i>}
             </span>
           </div>
 
@@ -47,7 +60,7 @@ export function Delivery() {
 
             <div>
               <span>Pagamento na entrega</span>
-              <strong>Cartão de Crédito</strong>
+              <strong>{paymentType?.name}</strong>
             </div>
           </div>
         </DeliveryDetailContainer>

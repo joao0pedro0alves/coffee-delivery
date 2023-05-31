@@ -2,7 +2,7 @@ import { Hero } from '../../components/Hero'
 import { HomeContainer, StoreContainer, CatalogContainer } from './styles'
 
 import { CoffeeCatalog } from './CoffeeCatalog'
-import { coffees } from '../../sample/coffees'
+import { coffees } from '../../repositories/coffees'
 
 export function Home() {
   return (

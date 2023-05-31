@@ -13,6 +13,12 @@ export const CheckoutConfirmContainer = styled.div`
   button {
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 6px;
+  }
 `
 
 export const CoffeesContainer = styled.div`
@@ -32,6 +38,10 @@ export const CoffeeContainer = styled.div`
   > span {
     white-space: nowrap;
     font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
   }
 `
 
