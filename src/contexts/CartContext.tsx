@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useReducer, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CartItem, CheckoutData, cartReducer } from '../reducers/cart/reducer'
 import {
   addCartItemAction,
@@ -29,6 +30,8 @@ export const CartContext = createContext<CartContextProps>(
 const CART_STATE_KEY = '@coffee-delivery:cart-state-1.0.0'
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
+  const navigate = useNavigate()
+
   const [cartState, dispatch] = useReducer(
     cartReducer,
     {
@@ -63,6 +66,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   function checkout(checkoutData: CheckoutData) {
     dispatch(checkoutAction(checkoutData))
+
+    navigate('/delivery')
   }
 
   useEffect(() => {

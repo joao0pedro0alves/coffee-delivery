@@ -74,10 +74,16 @@ export const CoffeeCardBody = styled.div`
   }
 `
 
-export const CardInput = styled.input`
+interface CardInputProps {
+  isError: boolean
+}
+
+export const CardInput = styled.input<CardInputProps>`
   background-color: ${(props) => props.theme['base-input']};
   color: ${(props) => props.theme['base-label']};
-  border: 1px solid ${(props) => props.theme['base-button']};
+  border: 1px solid
+    ${(props) =>
+      props.isError ? props.theme['base-error'] : props.theme['base-button']};
   padding: 0.75rem;
   border-radius: 4px;
   font-size: 0.875rem;

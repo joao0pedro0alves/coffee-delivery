@@ -13,7 +13,7 @@ export interface CheckoutData {
   cep: string
   address: string
   number: string
-  complement: string
+  complement?: string
   neighborhood: string
   city: string
   state: string

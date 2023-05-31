@@ -1,6 +1,10 @@
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import { CurrencyDollar, MapPinLine } from 'phosphor-react'
 import { useTheme } from 'styled-components'
+
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import { paymentTypes } from '../../repositories/payment_types'
 import { useCartContext } from '../../hooks/useCartContext'
@@ -16,29 +20,40 @@ import {
   CardInput,
 } from './styles'
 
+const checkoutFormValidationSchema = z.object({
+  cep: z.string().min(1).max(9),
+  address: z.string().min(1),
+  number: z.string().min(1),
+  complement: z.string().optional(),
+  neighborhood: z.string().min(1),
+  city: z.string().min(1),
+  state: z.string().min(2).max(2),
+})
+
+type CheckoutFormData = z.infer<typeof checkoutFormValidationSchema>
+
 export function Checkout() {
   const theme = useTheme()
 
-  const { checkout } = useCartContext()
+  const { checkout, checkoutData } = useCartContext()
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<CheckoutFormData>({
+    resolver: zodResolver(checkoutFormValidationSchema),
+    defaultValues: { ...checkoutData },
+  })
 
   const [selectedPaymentType, setSelectedPaymentType] = useState<string | null>(
-    null,
+    checkoutData?.paymentType || null,
   )
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    const formData = new FormData(event.currentTarget)
-
+  function handleCheckout(checkoutData: CheckoutFormData) {
     if (selectedPaymentType) {
       checkout({
-        cep: formData.get('cep') as string,
-        address: formData.get('address') as string,
-        number: formData.get('number') as string,
-        complement: formData.get('complement') as string,
-        neighborhood: formData.get('neighborhood') as string,
-        city: formData.get('city') as string,
-        state: formData.get('state') as string,
+        ...checkoutData,
         paymentType: selectedPaymentType,
       })
     }
@@ -46,7 +61,7 @@ export function Checkout() {
 
   return (
     <CheckoutContainer className="Container">
-      <CheckoutForm onSubmit={handleSubmit}>
+      <CheckoutForm onSubmit={handleSubmit(handleCheckout)}>
         {/* Left */}
         <section>
           <h3>Complete seu pedido</h3>
@@ -61,22 +76,46 @@ export function Checkout() {
               </div>
             </CoffeeCardHeader>
             <CoffeeCardBody>
-              <CardInput name="cep" placeholder="CEP" />
-              <CardInput name="address" placeholder="Rua" />
-              <CardInput name="number" placeholder="Número" />
-
+              <CardInput
+                placeholder="CEP"
+                isError={!!errors.cep}
+                inputMode="numeric"
+                {...register('cep')}
+              />
+              <CardInput
+                placeholder="Rua"
+                isError={!!errors.address}
+                {...register('address')}
+              />
+              <CardInput
+                placeholder="Número"
+                isError={!!errors.number}
+                {...register('number')}
+              />
               <div>
                 <CardInput
                   id="complement"
-                  name="complement"
                   placeholder="Complemento"
+                  isError={!!errors.complement}
+                  {...register('complement')}
                 />
                 <label htmlFor="complement">Opcional</label>
               </div>
-
-              <CardInput name="neighborhood" placeholder="Bairro" />
-              <CardInput name="city" placeholder="Cidade" />
-              <CardInput name="state" placeholder="UF" />
+              <CardInput
+                placeholder="Bairro"
+                isError={!!errors.neighborhood}
+                {...register('neighborhood')}
+              />
+              <CardInput
+                placeholder="Cidade"
+                isError={!!errors.city}
+                {...register('city')}
+              />
+              <CardInput
+                placeholder="UF"
+                isError={!!errors.state}
+                {...register('state')}
+              />
             </CoffeeCardBody>
           </CoffeeCard>
 
