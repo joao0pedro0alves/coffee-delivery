@@ -22,12 +22,12 @@ const defaultStyles = css<ButtonContainerProps>`
     color: ${(props) => props.theme['purple-dark']};
   }
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${(props) =>
       props.selected ? props.theme['purple-light'] : props.theme['base-hover']};
   }
 
-  :focus {
+  &:focus {
     box-shadow: 0 0 0 2px ${(props) => props.theme.purple};
   }
 `
@@ -39,7 +39,7 @@ const primaryStyles = css`
   background-color: ${(props) => props.theme.yellow};
   color: ${(props) => props.theme.white};
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${(props) => props.theme['yellow-dark']};
   }
 `
@@ -51,11 +51,11 @@ const secondaryStyles = css`
   background-color: ${(props) => props.theme['purple-light']};
   color: ${(props) => props.theme['purple-dark']};
 
-  &:hover {
+  &:not(:disabled):hover {
     opacity: 0.8;
   }
 
-  :focus {
+  &:focus {
     box-shadow: 0 0 0 2px ${(props) => props.theme.purple};
   }
 `
@@ -88,4 +88,9 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   // Size
   height: ${(props) => (props.size === 'medium' ? '2.8rem' : '2rem')};
   font-size: ${(props) => (props.size === 'medium' ? '0.875rem' : '0.75rem')};
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
 `

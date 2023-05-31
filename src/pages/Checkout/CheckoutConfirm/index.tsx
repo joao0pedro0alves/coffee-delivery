@@ -6,10 +6,10 @@ import {
   SummaryContainer,
 } from './styles'
 
-import { coffees } from '../../../sample/coffees'
 import { Button } from '../../../components/Button'
 import { InputNumber } from '../../../components/InputNumber'
 import { Trash } from 'phosphor-react'
+import { useCartContext } from '../../../hooks/useCartContext'
 
 const currency = new Intl.NumberFormat('pt-br', {
   style: 'currency',
@@ -17,13 +17,26 @@ const currency = new Intl.NumberFormat('pt-br', {
 })
 
 export function CheckoutConfirm() {
-  const coffessInCart = coffees.slice(0, 2)
+  const {
+    items: coffessInCart,
+    updateItemAmount,
+    removeItem,
+  } = useCartContext()
+
+  const itemsPriceInCents = coffessInCart.reduce((acc, item) => {
+    return acc + item.priceInCents * item.amount
+  }, 0)
+
+  const deliveryPriceInCents = itemsPriceInCents > 0 ? 350 : 0
+  const totalInCents = deliveryPriceInCents + itemsPriceInCents
 
   return (
     <CheckoutConfirmContainer>
       {/* Coffeess */}
       <CoffeesContainer>
         {coffessInCart.map((coffee) => {
+          const priceInCents = coffee.priceInCents * coffee.amount
+
           return (
             <CoffeeContainer key={coffee.id}>
               <CoffeeControls>
@@ -31,11 +44,17 @@ export function CheckoutConfirm() {
                 <div>
                   <span>{coffee.name}</span>
                   <div>
-                    <InputNumber />
+                    <InputNumber
+                      onChange={(newAmount) =>
+                        updateItemAmount(coffee.id, newAmount)
+                      }
+                      initialCounter={coffee.amount}
+                    />
                     <Button
                       type="button"
                       startIcon={<Trash size={16} />}
                       size="small"
+                      onClick={() => removeItem(coffee.id)}
                     >
                       Remover
                     </Button>
@@ -43,7 +62,7 @@ export function CheckoutConfirm() {
                 </div>
               </CoffeeControls>
 
-              <span>{currency.format(coffee.priceInCents / 100)}</span>
+              <span>{currency.format(priceInCents / 100)}</span>
             </CoffeeContainer>
           )
         })}
@@ -53,19 +72,23 @@ export function CheckoutConfirm() {
       <SummaryContainer>
         <div>
           <span>Total de itens</span>
-          <span>R$ 29,70</span>
+          <span>{currency.format(itemsPriceInCents / 100)}</span>
         </div>
         <div>
           <span>Entrega</span>
-          <span>R$ 3,50</span>
+          <span>{currency.format(deliveryPriceInCents / 100)}</span>
         </div>
         <div>
           <span>Total</span>
-          <span>R$ 33,20</span>
+          <span>{currency.format(totalInCents / 100)}</span>
         </div>
       </SummaryContainer>
 
-      <Button type="submit" variant="primary">
+      <Button
+        disabled={coffessInCart.length === 0}
+        type="submit"
+        variant="primary"
+      >
         Confirmar pedido
       </Button>
     </CheckoutConfirmContainer>

@@ -6,9 +6,12 @@ import { Button } from '../Button'
 import { CheckoutButton, HeaderContainer } from './styles'
 
 import logoCoffeeDelivery from '../../assets/logo-coffee-delivery.svg'
+import { useCartContext } from '../../hooks/useCartContext'
 
 export function Header() {
   const navigate = useNavigate()
+
+  const { items } = useCartContext()
 
   return (
     <HeaderContainer className="Container">
@@ -27,8 +30,12 @@ export function Header() {
 
         <CheckoutButton
           onClick={() => navigate('/checkout')}
-          title="Você possui 2 items no carrinho"
-          badgeContent={2}
+          title={
+            items.length
+              ? `Você possui ${items.length} item(s) no carrinho`
+              : 'Seu carrinho está vazio'
+          }
+          badgeContent={items.length}
         >
           <ShoppingCart weight="fill" size={22} />
         </CheckoutButton>

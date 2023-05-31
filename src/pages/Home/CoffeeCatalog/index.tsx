@@ -9,15 +9,11 @@ import {
 } from './styles'
 
 import { InputNumber } from '../../../components/InputNumber'
+import { useCartContext } from '../../../hooks/useCartContext'
+import { Coffee } from '../../../sample/coffees'
 
 interface CoffeeCatalogProps {
-  data: {
-    imageUrl: string
-    name: string
-    description: string
-    priceInCents: number
-    types: string[]
-  }
+  data: Coffee
 }
 
 const currency = new Intl.NumberFormat('pt-br', {
@@ -25,8 +21,23 @@ const currency = new Intl.NumberFormat('pt-br', {
 })
 
 export function CoffeeCatalog({ data }: CoffeeCatalogProps) {
+  const { addItem } = useCartContext()
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const amount = formData.get('amount')
+
+    if (amount) {
+      addItem({
+        id: data.id,
+        name: data.name,
+        imageUrl: data.imageUrl,
+        priceInCents: data.priceInCents,
+        amount: Number(amount),
+      })
+    }
   }
 
   return (

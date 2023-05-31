@@ -1,5 +1,5 @@
+import { useState, useEffect, ChangeEvent } from 'react'
 import { Minus, Plus } from 'phosphor-react'
-import { useState } from 'react'
 import { InputNumberContainer } from './styles'
 
 interface InputNumberProps {
@@ -7,6 +7,8 @@ interface InputNumberProps {
   min?: number
   max?: number
   step?: number
+
+  onChange?: (newCounterValue: number) => void
 }
 
 export function InputNumber({
@@ -14,8 +16,17 @@ export function InputNumber({
   step = 1,
   min = 1,
   max,
+  onChange,
 }: InputNumberProps) {
   const [counter, setCounter] = useState(initialCounter)
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(counter)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [counter])
 
   function handleMinus() {
     setCounter((state) => {
@@ -23,11 +34,17 @@ export function InputNumber({
       else return state
     })
   }
+
   function handlePlus() {
     setCounter((state) => {
       if (max && state >= max) return state
       return state + step
     })
+  }
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const newValue = Number(event.target.value)
+    setCounter(newValue)
   }
 
   return (
@@ -36,12 +53,13 @@ export function InputNumber({
         <Minus size={16} weight="fill" />
       </button>
       <input
-        disabled
+        // readOnly
         name="amount"
         type="number"
         min={min}
         max={max}
         value={counter}
+        onChange={handleChange}
       />
       <button onClick={handlePlus} type="button">
         <Plus size={16} weight="fill" />

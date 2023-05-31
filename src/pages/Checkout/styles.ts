@@ -8,6 +8,10 @@ export const CheckoutForm = styled.form`
   display: flex;
   gap: 2rem;
 
+  section {
+    flex: 1;
+  }
+
   h3 {
     margin-bottom: 1rem;
     font-family: 'Baloo 2', cursive;
@@ -19,7 +23,7 @@ export const CheckoutForm = styled.form`
 `
 
 export const CoffeeCard = styled.div`
-  max-width: 640px;
+  width: 640px;
 
   padding: 2.5rem;
   background-color: ${(props) => props.theme['base-card']};
